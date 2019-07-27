@@ -43,6 +43,7 @@ public class MainController {
 		return userRepository.findById(id);
 	}
 	
+	
 	@GetMapping(path="/all")//Mapeo a GET
 	public @ResponseBody Iterable<User> getAllUsers(){ //Tipo respuesta
 		return userRepository.findAll();
@@ -53,5 +54,7 @@ public class MainController {
 	
 		return userRepository.saveAll(users);
 	}
+	
+	
 
 }
