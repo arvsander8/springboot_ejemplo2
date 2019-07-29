@@ -33,14 +33,15 @@ class GroupController {
     }
 	@Cacheable("Group")
     @GetMapping("/groups")
-    Iterable<Group> groups(Principal principal) {
+    Collection<Group> groups(Principal principal) {
 		try {
 			Thread.sleep(1*5);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        return groupRepository.findAll();
+		System.out.println("Nombre::::::---->>>>>> " + principal.toString());
+        return groupRepository.findAllByUserId(principal.getName().toString());
     }
     
     @GetMapping("/group/{id}")
