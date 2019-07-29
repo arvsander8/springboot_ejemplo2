@@ -5,18 +5,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.example.demo.User;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
-@Entity //Para crear una tabla con Hibernate
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class User {
 	
 		@Id // Para indicar que el elemento es un PK
-		@GeneratedValue(strategy=GenerationType.AUTO) //define el tipo de generacion para el autoincrement
 		private String id;
 		
 		private String name;
 		
 		private String email;
+
 
 		public String getId() {
 			return id;

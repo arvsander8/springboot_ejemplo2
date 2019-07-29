@@ -29,18 +29,20 @@ public class MainController {
 	public @ResponseBody String addNewUser( /*devuelve tipo de respuesta*/
 			@RequestParam String name, @RequestParam String email) { /*Parametros*/
 		
-			User n = new User();
+		/*Comentado para evitar el error de String to Int del ejemplo de grupos*/
+			/*User n = new User();
 			n.setName(name);
 			n.setEmail(email);
 			userRepository.save(n);
-					
+			*/	
 			return "Saved";
 		
 	}
 	
 	@GetMapping(path="/user/{id}")//Mapeo a GET
 	public @ResponseBody Optional<User> getUser(@PathVariable Integer id){ //Tipo respuesta
-		return userRepository.findById(id);
+		//return userRepository.findById(id);//Comentado por el error
+		return userRepository.findById("");
 	}
 	
 	

@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.Group;
+import com.example.demo.GroupRepository;
+import com.example.demo.User;
+import com.example.demo.UserRepository;
 
-import org.apache.commons.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
@@ -41,7 +44,7 @@ class GroupController {
 			e.printStackTrace();
 		}
 		System.out.println("Nombre::::::---->>>>>> " + principal.toString());
-        return groupRepository.findAllByUserId(principal.getName().toString());
+        return groupRepository.findAllByUserId(principal.getName());
     }
     
     @GetMapping("/group/{id}")
@@ -58,11 +61,12 @@ class GroupController {
         log.info("Request to create group: {}", group);
         Map<String, Object> details = principal.getAttributes();
         String userId = details.get("sub").toString();// details.get("sub").toString();
-        int uId = Integer.parseInt(userId);
- 
-        // check to see if user already exists
-        Optional<User> user = userRepository.findById(uId);
-        group.setUser(user.orElse(new User()));
+     
+         // check to see if user already exists
+        Optional<User> user = userRepository.findById(userId);
+        group.setUser(user.orElse(new User(userId,
+                        details.get("name").toString(), details.get("email").toString())));
+
 
         Group result = groupRepository.save(group);
         return ResponseEntity.created(new URI("/api/group/" + result.getId()))
